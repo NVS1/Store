@@ -1,6 +1,8 @@
 package ua.kiev.prog.model;
 
 import lombok.Data;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -8,7 +10,8 @@ import java.util.Set;
 
 @Data
 @Component
-public class Basket {
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
+public class Cart {
     private Set<ProductItem> productItems = new HashSet<>();
 
     public Integer getAmount(){
@@ -24,5 +27,14 @@ public class Basket {
             price+=productItem.getPrice();
         }
         return price;
+    }
+    public void addProductItem (ProductItem productItem){
+        productItems.add(productItem);
+    }
+    public void removeItem (ProductItem productItem){
+        productItems.remove(productItem);
+    }
+    public void clearCart (){
+        productItems.clear();
     }
 }

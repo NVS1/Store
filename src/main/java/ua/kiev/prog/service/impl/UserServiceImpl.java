@@ -36,13 +36,10 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
-    public boolean createUser(String login, String password) {
-        if (findUserByLogin(login)!=null){
+    public boolean createUser(Account account) {
+        if (findUserByLogin(account.getLogin())!=null){
             return false;
         }
-        Account account = new Account();
-        account.setLogin(login);
-        account.setPassword(password);
         accountRepo.save(account);
         return true;
     }
@@ -60,5 +57,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addAddress(Address address) {
         addressRepo.save(address);
+    }
+    @Transactional
+    @Override
+    public void deleteUser(Account account) {
+        accountRepo.delete(account);
     }
 }

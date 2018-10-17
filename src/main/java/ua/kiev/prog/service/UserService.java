@@ -11,8 +11,9 @@ public interface UserService {
     Account getUserById (Long id);
     Account findUserByLogin (String login);
     Page<Account> findAllUsers (Pageable pageable);
-    boolean createUser (String login, String password);
+    boolean createUser (Account account);
     void updateUser (Account account);
     void updateAddress(Address address);
     void addAddress (Address address);
+    void deleteUser(Account account);
 }
